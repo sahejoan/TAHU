@@ -1,0 +1,47 @@
+1.-Relacionar las Tablas |users|1-----1|funcioarios|
+
+   1.1 Crear Migracion para adicionar campos en la tabla Funcionarios
+       2022_10_20_115925_add_auditing_fields_to_funcionarios_table.php
+
+        Contenido del archivo:
+                     $table->unsignedBigInteger('created_by')->nullable(); 
+                     $table->foreign('created_by')->references('id')->on('users');
+
+                    $table->unsignedBigInteger('updated_by')->nullable(); 
+                    $table->foreign('updated_by')->references('id')->on('users');
+
+                    $table->unsignedBigInteger('deleted_by')->nullable(); 
+                    $table->foreign('deleted_by')->references('id')->on('users');
+      
+   1.2 Correr la Migracion
+
+2.-Usu de UserStamps para Monitorear las actividades de los usuarios
+
+   2.1 composer require wildside/userstamps
+
+   2.2 php artisan vendor:publish --provider="wildside\UserStamps\UserStampsServiceProvider" --tag="config"
+
+      publicar un paquete instalado para cuando no lo reconoce
+
+3.- Modificar el Modelo Funcionarios
+
+    3.1 Agregar use Wildside\Userstamps\Userstamps;
+    3.2 Agregar use Userstamps;
+    3.3 Agragar 'creared_by', 'updated_by', 'deleted_by'
+
+4.-Crear MonitorController
+
+      4.1  public function index()
+    {
+        $objfuncionarios = funcionarios::with(['creator', 'editor'])->get();
+        return view('funcionarios.show', compact('objfuncionarios'));
+    }
+
+5.-Crear Vista
+    5.1 Crear la vista show  para mostrar las actividades de los usuarios
+    5.2 Modificar la vista funcionario.index con un enlace a funcionarios.show
+
+6.- Crear Ruta Monitor
+     6.1 Route::resource('monitor', MonitorController::class);
+     
+  

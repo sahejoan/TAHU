@@ -1,0 +1,85 @@
+<html>
+
+
+<head>
+    <style>
+        .result {
+            background-color: green;
+            color: #fff;
+            padding: 20px;
+            align: center;
+        }
+        
+        .row {
+            display: flex;
+        }
+    </style>
+
+    <title>Html</title>
+
+    <body>
+        <div id="reader" style="width:500px"></div>
+
+        <div id="result"></div>
+    </body>
+    <script src="../../minified/html5-qrcode.min_.js"></script>
+    <script>
+        function docReady(fn) {
+            // see if DOM is already available
+            if (document.readyState === "complete" ||
+                document.readyState === "interactive") {
+                // call on next available tick
+                setTimeout(fn, 1);
+            } else {
+                document.addEventListener("DOMContentLoaded", fn);
+            }
+        }
+
+        docReady(function() {
+            var resultContainer = document.getElementById('result');
+            var lastResult, countResults = 0;
+
+            function onScanError(errorMessage) {
+                //handle scan error
+            }
+
+            var html5QrcodeScanner = new Html5QrcodeScanner(
+                "reader", {
+                    fps: 10,
+                    qrbox: 250
+                });
+            html5QrcodeScanner.render(onScanSuccess, onScanError);
+        });
+    </script>
+
+</head>
+<script type="text/javascript">
+    function onScanSuccess(qrCodeMessage) {
+        document.getElementById('result').innerHTML = '<span class="result">' + qrCodeMessage + '</span>';
+    }
+
+    function onScanError(errorMessage) {
+        //handle scan error
+    }
+
+    var html5QrcodeScanner = new Html5QrcodeScanner(
+        "reader", {
+            fps: 10,
+            qrbox: 250
+        });
+    html5QrcodeScanner.render(onScanSuccess, onScanError);
+</script>
+
+
+<div class="row">
+
+    <div class="col" style="padding:30px;">
+        <h4>SCAN RESULT</h4>
+
+        <div id="result">Result Here</div>
+    </div>
+
+</div>
+
+
+</html>

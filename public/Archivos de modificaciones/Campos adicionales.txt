@@ -1,0 +1,13 @@
+1.- Modificar Vista
+   1.1 Modificar vista Crear adicionando los input para los campos tipo_s y alergia
+   1.2 Modificar vista editar adicionando los input para los campos tipo_s y alergia
+
+2.-Moficar Controlador funcioarios
+   2.1 Agragar los campos tipo_s y alegia
+
+3.-Modificar Modelo Funcionarios
+   3.1 Agragar los campos tipo_s y alergia a protected $fillable
+
+4.-Modificar los archivos en Request agragando lo correspondiente a los nuevos campos 
+   4.1 FuncionarioCreateRequest
+   4.2 FuncionarioUpdateRequest
